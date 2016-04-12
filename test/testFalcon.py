@@ -132,7 +132,6 @@ struct Reader : public ExRootTreeReader
             fjet2pt.Fill(fjet[1].PT)
             fjet3pt.Fill(fjet[2].PT)    
      
-
         # Delphes 
         rjet = []
         for ii in xrange(reader.numberOfJets):
@@ -152,7 +151,7 @@ struct Reader : public ExRootTreeReader
     # plot
     
     hist = []
-    for ii, ymax in enumerate([250, 350, 700]):
+    for ii, ymax in enumerate([500, 500, 1000]):
         jj = ii + 1
         
         h = eval('hjet%dpt' % jj)
