@@ -17,18 +17,18 @@ bindir	:= bin
 $(shell mkdir -p lib; mkdir -p tmp)
 
 # get lists of sources
-
-SRCS	:= 	$(srcdir)/Turtle.cc $(srcdir)/nic.cc
-
 CINTSRCS:= $(wildcard $(srcdir)/*_dict.cc)
 
+SRCS	:= $(srcdir)/FalconTester.cc
+CXXSRCS	:= $(srcdir)/TKDTreeBinning.cxx $(srcdir)/TKDTree.cxx 
 OTHERSRCS:= $(filter-out $(CINTSRCS) $(SRCS),$(wildcard $(srcdir)/*.cc))
 
 # list of dictionaries to be created
-DICTIONARIES	:= $(SRCS:.cc=_dict.cc)
+DICTIONARIES	:= $(SRCS:.cc=_dict.cc) #$(CXXSRCS:.cxx=_dict.cc)
 
 # get list of objects
 OBJECTS		:= $(OTHERSRCS:.cc=.o) $(SRCS:.cc=.o) $(DICTIONARIES:.cc=.o)
+CXXOBJECTS	:= $(CXXSRCS:.cxx=.o)
 
 #say := $(shell echo "DICTIONARIES:     $(DICTIONARIES)" >& 2)
 #say := $(shell echo "" >& 2)
@@ -74,6 +74,11 @@ $(LIBRARY)	: $(OBJECTS)
 	$(LD) $(LDFLAGS) $^ $(LIBS)  -o $@
 
 $(OBJECTS)	: %.o	: 	%.cc
+	@echo ""
+	@echo "=> Compiling $<"
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(CXXOBJECTS)	: %.o	: 	%.cxx
 	@echo ""
 	@echo "=> Compiling $<"
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@

@@ -1,3 +1,4 @@
+export DELPHES=$HOME/external/delphes
 export PATH=$PWD/bin:$PATH
 export FASTJET=$HOME/external
 export DYLD_LIBRARY_PATH=$FASTJET/lib
